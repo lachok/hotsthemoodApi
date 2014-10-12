@@ -81,6 +81,12 @@ namespace hotsthemoodApi
                     documentSession.SaveChanges();
                 }
 
+                ctx.Response.WithHeaders(
+                    new Tuple<string, string>("Access-Control-Allow-Origin", "*"),
+                    new Tuple<string, string>("Access-Control-Allow-Methods", "PUT, GET"),
+                    new Tuple<string, string>("Access-Control-Allow-Headers", "Content-Type")
+                );
+
                 documentSession.Dispose();
             });
         }

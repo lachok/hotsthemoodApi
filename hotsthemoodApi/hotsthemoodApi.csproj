@@ -134,6 +134,7 @@
     <Compile Include="Modules\Checkin\CheckinModule.cs" />
     <Compile Include="Modules\Checkin\CheckinRequest.cs" />
     <Compile Include="Modules\Checkin\CheckinResponse.cs" />
+    <Compile Include="Modules\HappinessQuery\HappinessQueryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
