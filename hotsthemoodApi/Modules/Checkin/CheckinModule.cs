@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using hotsthemoodApi.ModuleExtensions;
 using Nancy;
+using Raven.Client;
 
 namespace hotsthemoodApi.Modules.Checkin
 {
@@ -30,18 +30,18 @@ namespace hotsthemoodApi.Modules.Checkin
         void Insert(CheckinDto checkinDto);
     }
 
-    public class FakeCheckinRepository : ICheckinRepository
+    public class CheckinRepository : ICheckinRepository
     {
-        private readonly List<CheckinDto> _checkins;
+        private readonly IDocumentSession _session;
 
-        public FakeCheckinRepository()
+        public CheckinRepository(IDocumentSession session)
         {
-            _checkins = new List<CheckinDto>();
+            _session = session;
         }
 
         public void Insert(CheckinDto checkinDto)
         {
-            _checkins.Add(checkinDto);
+            _session.Store(checkinDto);
         }
     }
 }
