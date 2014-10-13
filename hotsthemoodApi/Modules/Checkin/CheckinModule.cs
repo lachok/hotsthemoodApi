@@ -64,15 +64,10 @@ namespace hotsthemoodApi.Modules.Checkin
                     locationRatings.Add(location.Reference, 0);
                 }
 
-                var checkin = checkins.FirstOrDefault(c => c.LocationReferenceId == location.Reference);
+                var happyCheckins = checkins.Count(c => c.LocationReferenceId == location.Reference && c.Mood == Mood.Happy);
+                var sadCheckins = checkins.Count(c => c.LocationReferenceId == location.Reference && c.Mood == Mood.Sad);
 
-                if(checkin == null)
-                    continue;
-                
-                if (checkin.Mood == Mood.Happy)
-                    locationRatings[location.Reference]++;
-                else
-                    locationRatings[location.Reference]--;
+                locationRatings[location.Reference] = happyCheckins - sadCheckins;
             }
 
             return (from locationReference in locationRatings.Keys
