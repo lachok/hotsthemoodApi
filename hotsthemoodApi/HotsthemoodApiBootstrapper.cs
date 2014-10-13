@@ -18,7 +18,7 @@ namespace hotsthemoodApi
         {
             base.ApplicationStartup(container, pipelines);
 
-            Mapper.CreateMap<CheckinRequest, CheckinDto>();
+            Mapper.CreateMap<CheckinRequest, Checkin>();
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)

@@ -22,8 +22,7 @@ namespace hotsthemoodApi.Modules.Checkin
 
         private CheckinResponse CheckIn(CheckinRequest checkinRequest)
         {
-            var checkinDto = Mapper.Map<CheckinDto>(checkinRequest);
-            _checkinRepository.Insert(checkinDto);
+            _checkinRepository.Insert(checkinRequest.Checkin);
 
             return new CheckinResponse();
         }
@@ -31,8 +30,9 @@ namespace hotsthemoodApi.Modules.Checkin
 
     public interface ICheckinRepository
     {
-        void Insert(CheckinDto checkinDto);
-        RatedLocationDto[] GetRatedLocations(LocationDto[] locations);
+        void Insert(Checkin checkin);
+        RatedLocation[] GetRatedLocations(Location[] locations);
+        Checkin[] GetAllByDeviceId(string deviceId);
     }
 
     public class CheckinRepository : ICheckinRepository
@@ -44,14 +44,14 @@ namespace hotsthemoodApi.Modules.Checkin
             _session = session;
         }
 
-        public void Insert(CheckinDto checkinDto)
+        public void Insert(Checkin checkin)
         {
-            _session.Store(checkinDto);
+            _session.Store(checkin);
         }
 
-        public RatedLocationDto[] GetRatedLocations(LocationDto[] locations)
+        public RatedLocation[] GetRatedLocations(Location[] locations)
         {
-            var checkins = _session.Advanced.LuceneQuery<CheckinDto>()
+            var checkins = _session.Advanced.LuceneQuery<Checkin>()
                 .WhereIn(x => x.LocationReferenceId, locations.Select(l => l.Reference))
                 .ToList();
 
@@ -77,7 +77,7 @@ namespace hotsthemoodApi.Modules.Checkin
 
             return (from locationReference in locationRatings.Keys
                     join location in locations on locationReference equals location.Reference
-                    select new RatedLocationDto
+                    select new RatedLocation
                     {
                         Name = location.Name,
                         PhotoUrl = location.PhotoUrl,
@@ -88,6 +88,16 @@ namespace hotsthemoodApi.Modules.Checkin
                     .OrderByDescending(t => t.Rating)
                     .ToArray();
 
+        }
+
+        public Checkin[] GetAllByDeviceId(string deviceId)
+        {
+            var checkins = _session.Query<Checkin>()
+                .Where(x => x.DeviceId == deviceId)
+                .OrderByDescending(x => x.Timestamp)
+                .ToList();
+
+            return checkins.ToArray();
         }
     }
 }

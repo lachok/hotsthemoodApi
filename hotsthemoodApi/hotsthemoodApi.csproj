@@ -130,11 +130,16 @@
     <Compile Include="HotsthemoodApiBootstrapper.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="ModuleExtensions\ModuleExtensions.cs" />
-    <Compile Include="Modules\Checkin\CheckinDto.cs" />
+    <Compile Include="Modules\Checkin\Checkin.cs" />
     <Compile Include="Modules\Checkin\CheckinModule.cs" />
     <Compile Include="Modules\Checkin\CheckinRequest.cs" />
     <Compile Include="Modules\Checkin\CheckinResponse.cs" />
+    <Compile Include="Modules\DeviceCheckinHistory\DeviceCheckinHistoryModule.cs" />
     <Compile Include="Modules\HappinessQuery\HappinessQueryModule.cs" />
+    <Compile Include="Modules\HappinessQuery\HappinessQueryRequest.cs" />
+    <Compile Include="Modules\HappinessQuery\HappinessQueryResponse.cs" />
+    <Compile Include="Modules\HappinessQuery\Location.cs" />
+    <Compile Include="Modules\HappinessQuery\RatedLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
