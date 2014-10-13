@@ -76,7 +76,7 @@ namespace hotsthemoodApi
             {
                 var documentSession = container.Resolve<IDocumentSession>();
 
-                if (ctx.Response.StatusCode != HttpStatusCode.InternalServerError)
+                if (ctx.Response.StatusCode != HttpStatusCode.InternalServerError && documentSession.Advanced.HasChanges)
                 {
                     documentSession.SaveChanges();
                 }
