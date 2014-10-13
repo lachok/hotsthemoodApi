@@ -1,4 +1,5 @@
-﻿using hotsthemoodApi.Models;
+﻿using System;
+using hotsthemoodApi.Models;
 
 namespace hotsthemoodApi.Modules.Checkin
 {
@@ -8,5 +9,11 @@ namespace hotsthemoodApi.Modules.Checkin
         public string DeviceId { get; set; }
         public string LocationReferenceId { get; set; }
         public Mood Mood { get; set; }
+        public DateTime Timestamp { get; set; }
+
+        public CheckinDto()
+        {
+            Timestamp = DateTime.Now;
+        }
     }
 }
