@@ -38,10 +38,10 @@ namespace hotsthemoodApi.Modules.HappinessQuery
 
     public class LocationDto
     {
-        public string name { get; set; }
-        public string reference { get; set; }
-        public string vicinity { get; set; }
-        public string photoUrl { get; set; }
+        public string Name { get; set; }
+        public string Reference { get; set; }
+        public string Vicinity { get; set; }
+        public string PhotoUrl { get; set; }
     }
 
     public class RatedLocationDto : LocationDto

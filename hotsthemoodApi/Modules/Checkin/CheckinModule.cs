@@ -52,39 +52,41 @@ namespace hotsthemoodApi.Modules.Checkin
         public RatedLocationDto[] GetRatedLocations(LocationDto[] locations)
         {
             var checkins = _session.Advanced.LuceneQuery<CheckinDto>()
-                .WhereIn(x => x.LocationReferenceId, locations.Select(l => l.reference))
+                .WhereIn(x => x.LocationReferenceId, locations.Select(l => l.Reference))
                 .ToList();
 
             var locationRatings = new Dictionary<string, int>();
 
             foreach (var location in locations)
             {
-                if (!locationRatings.ContainsKey(location.reference))
+                if (!locationRatings.ContainsKey(location.Reference))
                 {
-                    locationRatings.Add(location.reference, 0);
+                    locationRatings.Add(location.Reference, 0);
                 }
 
-                var checkin = checkins.FirstOrDefault(c => c.LocationReferenceId == location.reference);
+                var checkin = checkins.FirstOrDefault(c => c.LocationReferenceId == location.Reference);
 
                 if(checkin == null)
                     continue;
                 
                 if (checkin.Mood == Mood.Happy)
-                    locationRatings[location.reference]++;
+                    locationRatings[location.Reference]++;
                 else
-                    locationRatings[location.reference]--;
+                    locationRatings[location.Reference]--;
             }
 
             return (from locationReference in locationRatings.Keys
-                    join location in locations on locationReference equals location.reference
+                    join location in locations on locationReference equals location.Reference
                     select new RatedLocationDto
                     {
-                        name = location.name,
-                        photoUrl = location.photoUrl,
-                        reference = location.reference,
-                        vicinity = location.vicinity,
+                        Name = location.Name,
+                        PhotoUrl = location.PhotoUrl,
+                        Reference = location.Reference,
+                        Vicinity = location.Vicinity,
                         Rating = locationRatings[locationReference]
-                    }).ToArray();
+                    })
+                    .OrderByDescending(t => t.Rating)
+                    .ToArray();
 
         }
     }
