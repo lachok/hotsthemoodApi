@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using AutoMapper;
 using hotsthemoodApi.Contracts;
 using hotsthemoodApi.Modules.Auth;
@@ -14,8 +15,6 @@ namespace hotsthemoodApi
 {
     public class HotsthemoodApiBootstrapper : DefaultNancyBootstrapper
     {
-        private const string MongoDbConnection = "mongodb://localhost:27017";
-
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             base.ApplicationStartup(container, pipelines);
@@ -29,7 +28,8 @@ namespace hotsthemoodApi
         {
             base.ConfigureApplicationContainer(container);
 
-            var db = GetMongoDatabase(MongoDbConnection);
+            var mongoDbConnection = ConfigurationManager.AppSettings["MONGOLAB_URI"];
+            var db = GetMongoDatabase(mongoDbConnection);
 
             container.Register(GetMongoCollection<Checkin>(db, "checkins"));
             container.Register<IUserValidator, BasicUserValidator>();
