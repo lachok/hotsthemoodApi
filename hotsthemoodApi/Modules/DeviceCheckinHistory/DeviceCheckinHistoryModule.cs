@@ -1,4 +1,5 @@
 ﻿using System;
+using hotsthemoodApi.Contracts;
 using hotsthemoodApi.ModuleExtensions;
 using hotsthemoodApi.Modules.Checkin;
 using Nancy;

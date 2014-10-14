@@ -1,12 +1,14 @@
 ﻿using System;
 using hotsthemoodApi.Models;
 using hotsthemoodApi.Modules.HappinessQuery;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace hotsthemoodApi.Modules.Checkin
 {
     public class Checkin
     {
-        public int Id { get; set; }
+        [BsonId]
+        public string Id { get; set; }
         public string DeviceId { get; set; }
         public string LocationReferenceId { get; set; }
         public Mood Mood { get; set; }
