@@ -1,5 +1,4 @@
 ﻿using System;
-using hotsthemoodApi.Models;
 using hotsthemoodApi.Modules.HappinessQuery;
 using MongoDB.Bson.Serialization.Attributes;
 

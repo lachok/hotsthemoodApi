@@ -1,4 +1,4 @@
-﻿namespace hotsthemoodApi.Models
+﻿namespace hotsthemoodApi.Modules.Checkin
 {
     public enum Mood
     {

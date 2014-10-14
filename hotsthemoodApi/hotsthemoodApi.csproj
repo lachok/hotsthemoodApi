@@ -44,6 +44,9 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
@@ -56,6 +59,12 @@
     </Reference>
     <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.23.2\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Basic">
+      <HintPath>..\packages\Nancy.Authentication.Basic.0.23.2\lib\net40\Nancy.Authentication.Basic.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Elmah">
+      <HintPath>..\packages\Nancy.Elmah.0.1.8\lib\net40\Nancy.Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Aspnet">
       <HintPath>..\packages\Nancy.Hosting.Aspnet.0.23.2\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
@@ -82,6 +91,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -97,13 +107,14 @@
     <Compile Include="Contracts\ICheckinRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="HotsthemoodApiBootstrapper.cs" />
-    <Compile Include="Models\Mood.cs" />
     <Compile Include="ModuleExtensions\ModuleExtensions.cs" />
+    <Compile Include="Modules\Auth\BasicUserValidator.cs" />
     <Compile Include="Modules\Checkin\Checkin.cs" />
     <Compile Include="Modules\Checkin\CheckinModule.cs" />
     <Compile Include="Modules\Checkin\CheckinRepository.cs" />
     <Compile Include="Modules\Checkin\CheckinRequest.cs" />
     <Compile Include="Modules\Checkin\CheckinResponse.cs" />
+    <Compile Include="Modules\Checkin\Mood.cs" />
     <Compile Include="Modules\DeviceCheckinHistory\DeviceCheckinHistoryModule.cs" />
     <Compile Include="Modules\HappinessQuery\HappinessQueryModule.cs" />
     <Compile Include="Modules\HappinessQuery\HappinessQueryRequest.cs" />

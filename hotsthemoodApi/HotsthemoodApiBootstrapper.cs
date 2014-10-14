@@ -1,10 +1,13 @@
 ﻿using System;
 using AutoMapper;
 using hotsthemoodApi.Contracts;
+using hotsthemoodApi.Modules.Auth;
 using hotsthemoodApi.Modules.Checkin;
 using MongoDB.Driver;
 using Nancy;
+using Nancy.Authentication.Basic;
 using Nancy.Bootstrapper;
+using Nancy.Elmah;
 using Nancy.TinyIoc;
 
 namespace hotsthemoodApi
@@ -17,6 +20,8 @@ namespace hotsthemoodApi
         {
             base.ApplicationStartup(container, pipelines);
 
+            Elmahlogging.Enable(pipelines, "elmah", new[] { "administrator" }, new[] { HttpStatusCode.NotFound, HttpStatusCode.InsufficientStorage, });
+
             Mapper.CreateMap<CheckinRequest, Checkin>();
         }
 
@@ -27,6 +32,7 @@ namespace hotsthemoodApi
             var db = GetMongoDatabase(MongoDbConnection);
 
             container.Register(GetMongoCollection<Checkin>(db, "checkins"));
+            container.Register<IUserValidator, BasicUserValidator>();
         }
 
         private MongoCollection<T> GetMongoCollection<T>(MongoDatabase db, string collectionName)
@@ -55,6 +61,10 @@ namespace hotsthemoodApi
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
         {
             base.RequestStartup(container, pipelines, context);
+
+            BasicAuthentication.Enable(pipelines, new BasicAuthenticationConfiguration(
+                container.Resolve<IUserValidator>(), "hotsthemood"
+            ));
 
             pipelines.AfterRequest.AddItemToEndOfPipeline(ctx => ctx.Response.WithHeaders(
                 new Tuple<string, string>("Access-Control-Allow-Origin", "*"),

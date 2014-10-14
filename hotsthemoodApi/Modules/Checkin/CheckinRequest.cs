@@ -1,6 +1,4 @@
-﻿using hotsthemoodApi.Models;
-
-namespace hotsthemoodApi.Modules.Checkin
+﻿namespace hotsthemoodApi.Modules.Checkin
 {
     public class CheckinRequest
     {
