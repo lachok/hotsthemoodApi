@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using GoogleMapsApi.Entities.Places.Response;
+using hotsthemoodApi.ExternalApi;
 using hotsthemoodApi.ModuleExtensions;
 using hotsthemoodApi.Modules.HappinessQuery;
 using Nancy;

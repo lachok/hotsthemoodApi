@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using GoogleMapsApi.Entities.Common;
 using GoogleMapsApi.Entities.Places.Request;
 using GoogleMapsApi.Entities.Places.Response;
 
-namespace hotsthemoodApi.Modules.Situation
+namespace hotsthemoodApi.ExternalApi
 {
     public interface IGooglePlacesApi
     {

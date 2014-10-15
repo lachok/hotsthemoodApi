@@ -125,7 +125,7 @@
     <Compile Include="Modules\HappinessQuery\HappinessQueryResponse.cs" />
     <Compile Include="Modules\HappinessQuery\Location.cs" />
     <Compile Include="Modules\HappinessQuery\RatedLocation.cs" />
-    <Compile Include="Modules\Situation\GooglePlacesApi.cs" />
+    <Compile Include="ExternalApi\GooglePlacesApi.cs" />
     <Compile Include="Modules\Situation\SituationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
