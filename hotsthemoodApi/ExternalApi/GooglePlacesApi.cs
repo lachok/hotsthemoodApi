@@ -14,7 +14,7 @@ namespace hotsthemoodApi.ExternalApi
     public class GooglePlacesApi : IGooglePlacesApi
     {
         private const string ApiKey = "AIzaSyCSdO-ewgYLb2prwz8h6k1mq3NfjvG3ThY";
-        private const string PlaceTypes = "food|bar|night_club";
+        private const string PlaceTypes = "food|bar|night_club|movie_theater|art_gallery|stadium";
 
         public List<Result> GetPlacesByLocation(double lat, double lng)
         {
