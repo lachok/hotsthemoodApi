@@ -50,6 +50,9 @@
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMapsApi">
+      <HintPath>..\packages\GoogleMapsApi.0.40.0.0\lib\net45\GoogleMapsApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
@@ -73,6 +76,7 @@
       <HintPath>..\packages\Nancy.Validation.FluentValidation.0.23.2\lib\net40\Nancy.Validation.FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -121,6 +125,8 @@
     <Compile Include="Modules\HappinessQuery\HappinessQueryResponse.cs" />
     <Compile Include="Modules\HappinessQuery\Location.cs" />
     <Compile Include="Modules\HappinessQuery\RatedLocation.cs" />
+    <Compile Include="Modules\Situation\GooglePlacesApi.cs" />
+    <Compile Include="Modules\Situation\SituationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

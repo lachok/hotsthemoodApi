@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using AutoMapper;
+using GoogleMapsApi.Entities.Places.Response;
 using hotsthemoodApi.Contracts;
 using hotsthemoodApi.Modules.Auth;
 using hotsthemoodApi.Modules.Checkin;
+using hotsthemoodApi.Modules.HappinessQuery;
 using MongoDB.Driver;
 using Nancy;
 using Nancy.Authentication.Basic;
@@ -22,6 +24,11 @@ namespace hotsthemoodApi
             Elmahlogging.Enable(pipelines, "elmah", new[] { "administrator" }, new[] { HttpStatusCode.NotFound, HttpStatusCode.InsufficientStorage, });
 
             Mapper.CreateMap<CheckinRequest, Checkin>();
+            Mapper.CreateMap<Result, Location>()
+              .ForMember(dest => dest.PhotoUrl,
+              opts => opts.MapFrom(src => src.Icon)).
+              ForMember(dest => dest.Reference,
+              opts => opts.MapFrom(src => src.ID));
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
