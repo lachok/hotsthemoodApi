@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using AutoMapper;
 using hotsthemoodApi.Contracts;
 using hotsthemoodApi.Modules.Auth;
@@ -28,8 +29,7 @@ namespace hotsthemoodApi
         {
             base.ConfigureApplicationContainer(container);
 
-            var mongoDbConnection = ConfigurationManager.AppSettings["MONGOLAB_URI"];
-            var db = GetMongoDatabase(mongoDbConnection);
+            var db = GetMongoDatabase();
 
             container.Register(GetMongoCollection<Checkin>(db, "checkins"));
             container.Register<IUserValidator, BasicUserValidator>();
@@ -41,12 +41,16 @@ namespace hotsthemoodApi
             return collection;
         }
 
-        private MongoDatabase GetMongoDatabase(string connection)
+        private MongoDatabase GetMongoDatabase()
         {
+            
+            var connection = ConfigurationManager.AppSettings["MONGOLAB_URI"];
+            var databasename = connection.Split('/').Last();
+
             var client = new MongoClient(connection);
 
             var server = client.GetServer();
-            var database = server.GetDatabase("appharbor_3f522b1a-31d3-4bce-a4ab-d0933eba0112", SafeMode.True);
+            var database = server.GetDatabase(databasename, SafeMode.True);
             return database;
         }
 
