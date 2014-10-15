@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Linq;
 using AutoMapper;
 using hotsthemoodApi.Contracts;
 using hotsthemoodApi.Modules.Auth;
@@ -45,7 +44,7 @@ namespace hotsthemoodApi
         {
             
             var connection = ConfigurationManager.AppSettings["MONGOLAB_URI"];
-            var databasename = connection.Split('/').Last();
+            var databasename = MongoUrl.Create(connection).DatabaseName;
 
             var client = new MongoClient(connection);
 
