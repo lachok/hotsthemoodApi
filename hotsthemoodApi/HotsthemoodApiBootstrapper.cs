@@ -46,7 +46,7 @@ namespace hotsthemoodApi
             var client = new MongoClient(connection);
 
             var server = client.GetServer();
-            var database = server.GetDatabase("Contacts", SafeMode.True);
+            var database = server.GetDatabase("appharbor_3f522b1a-31d3-4bce-a4ab-d0933eba0112", SafeMode.True);
             return database;
         }
 
