@@ -126,11 +126,18 @@
     <Compile Include="Modules\HappinessQuery\Location.cs" />
     <Compile Include="Modules\HappinessQuery\RatedLocation.cs" />
     <Compile Include="ExternalApi\GooglePlacesApi.cs" />
+    <Compile Include="Modules\Search\SearchModule.cs" />
     <Compile Include="Modules\Situation\SituationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleEventbriteClientApi\EventbriteApiClient\EventBriteApiClient.csproj">
+      <Project>{cd3a85e2-9622-4cef-b705-e83ca303b68c}</Project>
+      <Name>EventBriteApiClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

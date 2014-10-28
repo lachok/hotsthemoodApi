@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using AutoMapper;
+using EventbriteApiClient;
+using EventbriteApiClient.Entities;
 using GoogleMapsApi.Entities.Places.Response;
 using hotsthemoodApi.Contracts;
 using hotsthemoodApi.Modules.Auth;
@@ -22,13 +24,30 @@ namespace hotsthemoodApi
             base.ApplicationStartup(container, pipelines);
 
             Elmahlogging.Enable(pipelines, "elmah", new[] { "administrator" }, new[] { HttpStatusCode.NotFound, HttpStatusCode.InsufficientStorage, });
+            
+            SetupAutomapper();
 
-            Mapper.CreateMap<CheckinRequest, Checkin>();
-            Mapper.CreateMap<Result, Location>()
-              .ForMember(dest => dest.PhotoUrl,
-              opts => opts.MapFrom(src => src.Icon)).
-              ForMember(dest => dest.Reference,
-              opts => opts.MapFrom(src => src.ID));
+        }
+
+        private void SetupAutomapper()
+        {
+            {
+                Mapper.CreateMap<CheckinRequest, Checkin>();
+                Mapper.CreateMap<Result, Location>()
+                    .ForMember(dest => dest.PhotoUrl,
+                        opts => opts.MapFrom(src => src.Icon)).
+                    ForMember(dest => dest.Reference,
+                        opts => opts.MapFrom(src => src.ID));
+
+                Mapper.CreateMap<Event, Location>()
+                    .ForMember(dest => dest.Name,
+                        opts => opts.MapFrom(src => src.Name.Text))
+                    .ForMember(dest => dest.Reference,
+                        opts => opts.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.PhotoUrl,
+                        opts => opts.MapFrom(src => src.LogoUrl));
+
+            }
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
@@ -66,6 +85,7 @@ namespace hotsthemoodApi
 
             container.Register<ICheckinRepository, CheckinRepository>();
             container.Register<CheckinModule>();
+            container.Register(new EventBriteApiContext("I4SKDVPHLU6PFMF74NQG"));
         }
 
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
