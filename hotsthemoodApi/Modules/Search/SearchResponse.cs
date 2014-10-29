@@ -4,6 +4,6 @@ namespace hotsthemoodApi.Modules.Search
 {
     public class SearchResponse
     {
-        public Location[] Locations { get; set; }
+        public Location[] Events { get; set; }
     }
 }

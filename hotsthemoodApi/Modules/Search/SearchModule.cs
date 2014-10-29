@@ -40,7 +40,7 @@ namespace hotsthemoodApi.Modules.Search
 
             return new SearchResponse()
             {
-                Locations = locations.ToArray()
+                Events = locations.ToArray()
             };
         }
 
