@@ -4,6 +4,7 @@ using System.Linq;
 using EventbriteApiClient;
 using EventbriteApiClient.DTOs;
 using EventbriteApiClient.Entities;
+using hotsthemoodApi.Cache;
 using hotsthemoodApi.ModuleExtensions;
 using hotsthemoodApi.Modules.HappinessQuery;
 using Nancy;
@@ -31,12 +32,21 @@ namespace hotsthemoodApi.Modules.Search
                Longitude = request.Longitude,
                DateRangeStart = DateTime.Now,
                DateRangeEnd = DateTime.Now.AddDays(1),
-               Range = "10mi"
+               Range = "1mi"
              
             };
+            var cacheKey = string.Format("{0}|{1}", eventSearchRequest.Latitude, eventSearchRequest.Longitude);
 
-            var events = _context.GetEvents(eventSearchRequest);
-            var locations = AutoMapper.Mapper.Map<IEnumerable<Event>, IEnumerable<Location>>(events);
+            var cachedLocations = CacheLayer.Get<IEnumerable<Location>>(cacheKey);
+            var locations = cachedLocations;
+            if (cachedLocations == null)
+            {
+                var events = _context.GetEvents(eventSearchRequest);
+                locations = AutoMapper.Mapper.Map<IEnumerable<Event>, IEnumerable<Location>>(events);
+
+                CacheLayer.Add(locations, cacheKey);
+
+            }
 
             return new SearchResponse()
             {
